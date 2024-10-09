@@ -1,0 +1,114 @@
+ <!--  ACTIVIDAD 7: 
+   
+Objetivo introducir el uso de setTimeout y setInterval en JavaScript. 
+Descripción: Crear un temporizador que cuente hacia atrás desde 50.
+
+ALUMNA: AMERICA JAZMIN ESTRADA HERNANDEZ  -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizador con setInterval y setTimeout</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0a2e8a, #5bc0de); 
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #ffffff; 
+            margin-bottom: 20px;
+        }
+
+        #temporizador {
+            font-size: 64px;
+            margin-bottom: 20px;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5); 
+            padding: 20px;
+            border-radius: 10px;
+            border: 5px solid transparent; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 120px; /* Ancho fijo para el temporizador */
+            transition: border-color 0.3s, box-shadow 0.3s; /* Transiciones suaves */
+        }
+
+        #temporizador:hover {
+            border-color: #ffffff; /* Contorno blanco al pasar el cursor */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7); 
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border: 2px solid #5bc0de; /* Contorno azul claro */
+            border-radius: 5px;
+            background-color: transparent; /* Fondo transparente */
+            color: #5bc0de; /* Color del texto azul claro */
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #5bc0de; 
+            color: #fff; /* Cambia el color del texto al blanco */
+            box-shadow: 0 0 15px rgba(91, 192, 222, 0.5); 
+            transform: translateY(-2px); /* Efecto de elevación */
+        }
+
+        button:active {
+            transform: translateY(0); /* Vuelve a la posición original al hacer clic */
+        }
+    </style>
+</head>
+<body>
+    <h1>Temporizador con Cuenta Atrás</h1>
+    <div id="temporizador">50</div>
+    <button id="iniciar-temporizador">Iniciar Temporizador</button>
+
+    <script>
+        // Variables
+        let tiempo = 50;
+        let temporizadorElemento = document.getElementById('temporizador');
+        let intervalo;
+
+        // Función para reducir el tiempo
+        function reducirTiempo() {
+            tiempo--;  // Reducir el tiempo en 1
+            temporizadorElemento.textContent = tiempo;
+
+            // Detener el temporizador cuando llegue a 0
+            if (tiempo <= 0) {
+                clearInterval(intervalo); // Detener el intervalo
+                temporizadorElemento.textContent = "0"; // Muestra 0 al final
+            }
+        }
+
+        // Función para iniciar el temporizador
+        function iniciarTemporizador() {
+            // Iniciar el intervalo para reducir el tiempo cada segundo
+            intervalo = setInterval(reducirTiempo, 1000); // Ejecutar cada 1000 ms (1 segundo)
+
+            // Usar setTimeout para detener el temporizador después de 50 segundos
+            setTimeout(() => {
+                clearInterval(intervalo); // Asegurarse de detener el intervalo si no se detuvo
+                temporizadorElemento.textContent = "0"; // Muestra 0 al final
+            }, tiempo * 1000); // Tiempo inicial en ms
+        }
+
+        // Asociar el evento click al botón
+        document.getElementById('iniciar-temporizador').addEventListener('click', iniciarTemporizador);
+    </script>
+</body>
+</html>
